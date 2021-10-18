@@ -6,9 +6,9 @@
       The returned inventory array should be in alphabetical order by item.
 
 
-  # psuedocode
+  # Pseudocode
     - reduce two arrays to one
-    - look throught new array
+    - look through new array
     - if item is in old array, replace with new item
     - if not in array add to new array
 */
