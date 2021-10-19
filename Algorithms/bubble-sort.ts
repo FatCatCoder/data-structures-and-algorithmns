@@ -10,13 +10,9 @@
 
 */
 
-function swap(array, itemA, itemB){
-    let temp = array[itemA];
-    array[itemA] = array[itemB];
-    array[itemB] = temp;
-}
+import { swap } from '../utils/arrayMutations'
 
-function bubbleSort (arr){
+function bubbleSort (arr: []){
     let swapped = false;
     for(let i=0; i < arr.length-1; ++i){
         if(arr[i] > arr[i+1]){
