@@ -11,6 +11,7 @@
 
 */
 
+
 function linearSearch(array: number[], matcher: number){
     let found: number;
     for(let x: number = 0; x <= array.length; x++){
