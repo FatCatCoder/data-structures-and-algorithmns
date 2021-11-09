@@ -22,7 +22,7 @@ function mergeSort(array: Array<number>){
     if(array.length === 1){
         return array;
     }
-    
+
     let arrayOne = mergeSort(array.slice(0, array.length/2));
     let arrayTwo = mergeSort(array.slice(array.length/2));
 
@@ -44,7 +44,6 @@ function merge(arrayOne: Array<number>, arrayTwo: Array<number>){
     }
 
     while(arrayOne.length){    
-
         arrayThree.push(arrayOne[0])
         arrayOne.splice(0, 1)
     }
