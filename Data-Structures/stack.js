@@ -64,3 +64,5 @@ console.log('pop! ',myStack.pop())
 myStack.print();
 console.log('pop! ',myStack.pop())
 myStack.print()
+
+module.exports = Stack;
