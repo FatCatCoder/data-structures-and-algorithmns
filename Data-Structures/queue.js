@@ -1,7 +1,7 @@
 /*
 
  # Definition
-    - A priority data store of most oldest added items. "First In First Out"
+    - A ordered data store of most oldest added items on top of the stack. "First In First Out"
       Add and remove items according to what ever is first.
       
  # Pseudocode
@@ -30,14 +30,14 @@
       return temp[0]
   }
 
-  /** adds item to top 
-   * @param item - new item to add */ 
+  /** adds item to end 
+   * @param item - new item to add on the end*/ 
   this.enqueue = function(item){
       collection.push(item)
   }
 
   /** returns top item */ 
-  this.front = function(){
+  this.peek = function(){
       return collection[0]
   }
 
