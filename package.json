@@ -5,6 +5,7 @@
     "ts-jest": "^27.0.7"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "active": "jest --watch"
   }
 }
