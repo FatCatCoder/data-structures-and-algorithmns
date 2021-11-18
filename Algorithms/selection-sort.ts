@@ -16,7 +16,7 @@
 
 import { swap } from '../utils/arrayMutations'
 
-function selectionSort(array: Array<number>){
+function selectionSort<T>(array: T[]): T[]{
     for(let i = 0; i < array.length-1; ++i){
         let val = i;
         for(let j = i + 1; j < array.length; ++j){
