@@ -58,6 +58,26 @@
   size(){
       return this.length
   }
+
+  union(externalSet) {
+    const unionSet = new Set();
+    this.values().forEach(x => unionSet.add(value))
+    externalSet.values().forEach(x => unionSet.add(value))
+    return unionSet;
+  }
+
+  intersection(externalSet){
+    const intersectionSet = new Set();
+    this.values().forEach(x => externalSet.values().includes(x) ? intersectionSet.add(x): null)
+    return intersectionSet
+  }
+
+  uniqueDifference(externalSet){
+    const differenceSet = new Set();
+    const valSet1 = this.values().filter(x => externalSet.values().includes(x))
+    valSet1.forEach(x => differenceSet.add(x))
+    return differenceSet;
+  }
 }
 
 module.exports = Set;
