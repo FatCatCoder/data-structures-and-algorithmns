@@ -16,13 +16,10 @@ function LinkedList() {
     };
   
     this.add = function(element){
-      // Only change code below this line
-      length++
+      length++ // increment length
+      
       if(head === null){
         return head = new Node(element);
-      }
-      else if(head.next === null){
-        return head.next = new Node(element);
       }
   
       function recursion(deepElement){
@@ -31,14 +28,43 @@ function LinkedList() {
         }
         recursion(deepElement.next)
       }
-  
+      // loop
       recursion(head)
-      console.log(head)
-      // Only change code above this line
+    };
+
+    this.remove = function(element){
+      if(head.element === element){
+        length--
+        return head = head.next;
+      }
+
+      let prevNode = head;
+  
+      function recursion(deepElement){
+        if(deepElement.element === element){
+          length-- 
+          return prevNode.next = deepElement.next;
+        }
+        if(deepElement.next !== null){
+          prevNode = deepElement;
+          recursion(deepElement.next)
+        }
+        return 'Removed'
+      }
+
+      // loop
+      recursion(head.next)
     };
   }
-  
+
   const LL = new LinkedList();
   LL.add('a');
   LL.add('b');
   LL.add('c');
+  LL.add('d');
+
+  LL.remove('t');
+
+  console.log('\n');
+  console.log(LL.head());
+  console.log(LL.size());
