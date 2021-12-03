@@ -18,7 +18,7 @@
  * Sorts values, maintaining order
  * @param array - Array of numbers
  */
-function mergeSort(array: Array<number>){
+function mergeSort(array: Array<number>): number[]{
     if(array.length === 1){
         return array;
     }

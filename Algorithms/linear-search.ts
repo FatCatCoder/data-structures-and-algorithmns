@@ -13,12 +13,14 @@
 
 
 function linearSearch(array: number[], matcher: number){
-    let found: number;
+    let found: number = 0;
+
     for(let x: number = 0; x <= array.length; x++){
         if(array[x] === matcher){
             return found = x;
         }
     }
+    
     return found;
 }
 

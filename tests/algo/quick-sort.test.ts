@@ -1,4 +1,5 @@
-const sort = require('../algorithms/quick-sort');
+export {};
+const sort = require('../../algorithms/quick-sort');
 
 const array: number[] = [10, 80, 30, 90, 40, 50, 70];
 const arraySorted: number[] = [10, 30, 40, 50, 70, 80, 90];

@@ -1,4 +1,5 @@
-const sort = require('../algorithms/bubble-sort');
+export {};
+const sort = require('../../algorithms/bubble-sort');
 
 const array1 = [2,5,1,4,2,3,8];
 const array2 = [1,2,3,4,5,3,7];

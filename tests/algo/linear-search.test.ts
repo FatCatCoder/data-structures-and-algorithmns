@@ -1,4 +1,5 @@
-const search = require('../algorithms/linear-search');
+export {};
+const search = require('../../algorithms/linear-search');
 
 const array1 = [0,1,2,3,4,5,6,7,8,9];
 const array2 = [2,4,3,1,6,55,883,4];
