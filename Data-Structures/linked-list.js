@@ -14,6 +14,38 @@ function LinkedList() {
     this.size = function(){
       return length;
     };
+
+    this.isEmpty = function(){
+      return this.size() === 0;
+    };
+
+    this.indexOf = function(findElem){
+      if(this.isEmpty()) return -1 // catch out of range
+
+      let index = 0;
+      function recursion(deepElement){
+        if(deepElement.element === findElem) return index;
+        else if(deepElement.next === null) return -1;
+        index++;
+        return recursion(deepElement.next);
+      }
+      // loop
+      return recursion(head);
+    };
+
+    this.elementAt = function(index){
+      if(index > this.size() || this.isEmpty()) {return undefined}; // catch out of range
+
+      let counter = 0;
+      function recursion(deepElement){
+        if(index === counter) return deepElement.element;
+        else if(deepElement.next === null) return undefined;
+        counter++;
+        return recursion(deepElement.next);
+      }
+      // loop
+      return recursion(head);
+    };
   
     this.add = function(element){
       length++ // increment length
@@ -57,14 +89,13 @@ function LinkedList() {
     };
   }
 
-  const LL = new LinkedList();
-  LL.add('a');
-  LL.add('b');
-  LL.add('c');
-  LL.add('d');
+const LL = new LinkedList();
+LL.add('a');
+LL.add('b');
+LL.add('c');
+LL.add('d');
 
-  LL.remove('t');
-
-  console.log('\n');
-  console.log(LL.head());
-  console.log(LL.size());
+console.log(LL.indexOf('a'))
+console.log(LL.indexOf('b'))
+console.log(LL.indexOf('c'))
+ 
