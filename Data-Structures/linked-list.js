@@ -87,6 +87,27 @@ function LinkedList() {
       // loop
       recursion(head.next)
     };
+
+    this.removeAt = function(index){
+      let indexPosition = 0;
+      let prevNode = head;
+  
+      function recursion(deepElement){
+        if(indexPosition === index){
+          length-- 
+          return prevNode.next = deepElement.next;
+        }
+        if(deepElement.next !== null){
+          prevNode = deepElement;
+          recursion(deepElement.next)
+        }
+        return 'Removed'
+      }
+
+      // loop
+      recursion(head)
+    };
+
   }
 
 const LL = new LinkedList();
