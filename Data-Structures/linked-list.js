@@ -159,5 +159,24 @@ function LinkedList() {
         }
       }
     };
+  }
 
+  class LinkedListNode {
+    constructor(value, next) {
+      this.value = value
+      this.next = next
+    }
+  }
+
+  class LinkedListClass {
+    constructor(){
+      this.head = null;
+      this.length = 0;
+    }
+
+    add(data){
+      let newNode = new LinkedListNode(data, this.head);
+      this.head = newNode;
+      this.length++
+    }
   }
