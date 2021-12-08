@@ -33,6 +33,22 @@ function LinkedList() {
       return this.size() === 0;
     };
 
+    // iterative apporach for better insertion speed
+    this.betterAdd = element => {
+      const node = new Node(element);
+      if (head) {
+        let current = head;
+        while (current.next !== null) {
+          current = current.next;
+        }
+        current.next = node;
+      }
+      else {
+        head = node;
+      }
+      length++;
+    };
+
     /** @param findElem - element to find index of or -1 if not found */
     this.indexOf = function(findElem){
       if(this.isEmpty()) return -1 // catch out of range
@@ -180,3 +196,19 @@ function LinkedList() {
       this.length++
     }
   }
+
+// recrusive vs iteration speed test
+  const LL =  new LinkedList();
+  const LLBetter =  new LinkedList();
+
+  console.time('LL');
+  for (let count = 0; count < 1000; count++) {
+    LL.add(count)
+  }
+  console.timeEnd('LL');
+
+  console.time('LL2');
+  for (let count = 0; count < 1000; count++) {
+    LLBetter.betterAdd(count)
+  }
+  console.timeEnd('LL2');

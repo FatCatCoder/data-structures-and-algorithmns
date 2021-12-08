@@ -37,29 +37,49 @@ function DoublyLinkedList() {
     /** removes all matching items
      * @newData item */
     this.remove = (removable) => {
-        if(!this.head) return null;
-
-        let prevNode = this.head;
-
-        function recursive(deepNode){
-            // c works
-            if(deepNode.data === removable){
-                deepNode.prev?
-                    deepNode.prev.next = deepNode.next :
-                    null;
-                deepNode.next? 
-                    deepNode.next.prev = deepNode.prev :
-                    this.tail = deepNode.prev;
-
-                this.length--;
+        if(this.head.data === removable){
+            if(this.head.next){
+                let temp = this.head.next;
+                this.head = temp;
+                this.head.prev = null;
             }
-            if(deepNode.next === null) return 'Done';
-
-            prevNode = deepNode.next;
-            return recursive(deepNode.next);
+            else this.head = null;
         }
+        else{
+            let node = this.head;
 
-        return recursive(this.head); // start
+            while(node.data !== null){
+                console.log(node);
+
+                if(node.data === removable){
+                    node.prev.next = node.next; // the behind node's forward ref, now refs this node's forward node
+                    node.next.prev = node.prev;
+                }
+                
+                if(node.next === null) break;
+                else node = node.next;
+                
+            }
+            console.log('while done');
+        }
+        console.log(this.head);
+    }
+
+    this.exists = (found) => {
+        let node = this.head;
+
+        while(node.data !== null){
+            console.log(node);
+
+            if(node.data === found){
+                console.log(true);
+                return true
+            }
+            
+            if(node.next === null) {console.log(false); break;}
+            else node = node.next;
+            
+        }
     }
 }
 
@@ -67,8 +87,9 @@ const dll = new DoublyLinkedList();
 dll.add('a');
 dll.add('b');
 dll.add('c');
-console.log(dll.remove('c'));
-console.log(dll.head);
+dll.remove('a');
+// dll.exists('b');
+
 
 module.exports = DoublyLinkedList;
 
@@ -96,4 +117,33 @@ module.exports = DoublyLinkedList;
 
         recursiveAdd(this.head); // start
     };
+
+
+
+
+    this.remove = (removable) => {
+        if(!this.head) return null;
+
+        let prevNode = this.head;
+
+        function recursive(deepNode){
+            // c works
+            if(deepNode.data === removable){
+                deepNode.prev?
+                    deepNode.prev.next = deepNode.next :
+                    null;
+                deepNode.next? 
+                    deepNode.next.prev = deepNode.prev :
+                    this.tail = deepNode.prev;
+
+                this.length--;
+            }
+            if(deepNode.next === null) return 'Done';
+
+            prevNode = deepNode.next;
+            return recursive(deepNode.next);
+        }
+
+        return recursive(this.head); // start
+    }
 */
