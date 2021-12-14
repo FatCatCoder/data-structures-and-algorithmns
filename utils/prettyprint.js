@@ -1,9 +1,9 @@
 const util = require('util');
 
-function print(...obj: any){
-    obj.forEach((element: any) => {
+function prettyprint(...obj){
+    obj.forEach((element) => {
         console.log(util.inspect(element, true, null, true));
     });
 }
 
-module.exports = print;
+module.exports = prettyprint
