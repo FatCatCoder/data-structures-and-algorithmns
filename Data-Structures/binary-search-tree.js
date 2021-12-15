@@ -71,14 +71,38 @@ class BinarySearchTree {
         }
         return found;
     }
+
+    isPresent(input){
+        if(this.root === null) return false;
+
+        let path = this.root;
+        while(path.value != null){
+            if(path.value === input){return true;}
+            
+            while(input > path.value){
+                if(path.right === input){
+                    return true
+                }
+                else path = path.right;
+            }
+            while(input < path.value){
+                if(path.left === input){
+                    return true
+                }
+                else path = path.left;
+            }
+        }
+    }
 }
 
-const tree = new BinarySearchTree();
+module.exports = BinarySearchTree
+
+// const tree = new BinarySearchTree();
 // tree.add(8);
 // tree.add(3);
 // tree.add(10);
 // tree.add(1);
 // tree.add(6);
 
-log(tree.findMin())
-log(tree.findMax())
+// log(tree.findMin())
+// log(tree.findMax())
