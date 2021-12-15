@@ -36,10 +36,10 @@ describe('Binary Search Tree', () =>{
         expect(tree.root.left.left.value).toEqual(2);
 
         tree.add(17); // RR
-        expect(tree.root.left.right.value).toEqual(7);
+        expect(tree.root.right.right.value).toEqual(17);
 
         tree.add(12); // RL
-        expect(tree.root.left.left.value).toEqual(2);
+        expect(tree.root.right.left.value).toEqual(12);
 
 
 
@@ -50,12 +50,12 @@ describe('Binary Search Tree', () =>{
     it('Find', () => {
         const tree = new BST();
         tree.add(10);
-tree.add(15);
-tree.add(5); 
-tree.add(7);
-tree.add(2);
-tree.add(17);
-tree.add(12);
+        tree.add(15);
+        tree.add(5); 
+        tree.add(7);
+        tree.add(2);
+        tree.add(17);
+        tree.add(12);
         expect(tree).not.toBeNull();
     });
     

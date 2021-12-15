@@ -12,6 +12,7 @@ class BinarySearchTree {
     constructor(){
         this.root = null;
     }
+
     /** 
      * returns undefined on success or null on fail
      * @param input
@@ -40,6 +41,9 @@ class BinarySearchTree {
         }
     }
 
+     /** 
+     * returns value or null
+     */
     findMin(){
         if(this.root === null) return null; // catch empty
 
@@ -56,6 +60,9 @@ class BinarySearchTree {
         return found;
     }
 
+    /** 
+     * returns value or null
+     */
     findMax(){
         if(this.root === null) return null; // catch empty
 
@@ -72,6 +79,10 @@ class BinarySearchTree {
         return found;
     }
 
+    /** 
+     * checks for value, returns boolean
+     * @param input
+     */
     isPresent(input){
         if(this.root === null) return false;
 
@@ -80,12 +91,14 @@ class BinarySearchTree {
             if(path.value === input){return true;}
             
             while(input > path.value){
+                if(path.right === null){return false} // not found
                 if(path.right === input){
                     return true
                 }
                 else path = path.right;
             }
             while(input < path.value){
+                if(path.left === null){return false} // not found
                 if(path.left === input){
                     return true
                 }
@@ -97,12 +110,13 @@ class BinarySearchTree {
 
 module.exports = BinarySearchTree
 
-// const tree = new BinarySearchTree();
-// tree.add(8);
-// tree.add(3);
-// tree.add(10);
-// tree.add(1);
-// tree.add(6);
+const tree = new BinarySearchTree();
+tree.add(10);
+tree.add(15);
+tree.add(5); 
+tree.add(7);
+tree.add(2);
+tree.add(17);
+// tree.add(12);
 
-// log(tree.findMin())
-// log(tree.findMax())
+log(tree.findMinHeight())
