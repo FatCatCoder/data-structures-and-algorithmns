@@ -59,40 +59,132 @@ describe('Binary Search Tree', () =>{
     //     expect(tree).not.toBeNull();
     // });
 
-    it('FindMinHeight()', () => {
-         // Arrange
-         const tree = new BST();
-         const tree2 = new BST();
+    // it('FindMinHeight()', () => {
+    //      // Arrange
+    //      const tree = new BST();
+    //      const tree2 = new BST();
+    //      const tree3 = new BST();
+    //      const tree4 = new BST();
+    //      const tree5 = new BST();
  
-         // Act
-         const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13, 12.5];
-         treeValues.forEach(x => tree.add(x));
+    //      // Act
+    //      const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13, 12.5]; // 2
+    //      treeValues.forEach(x => tree.add(x));
  
-         const tree2Values = [15, 14, 13, 12, 11, 10, 9, 8, 7, 20, 17, 25];
-         tree2Values.forEach(x => tree2.add(x));
+    //      const tree2Values = [15, 10, 20, 5, 12, 17, 2, 8, 14, 13, 12.5]; // 2
+    //      tree2Values.forEach(x => tree2.add(x));
+
+    //      const tree3Values = [15, 10, 20, 5, 12, 2, 8, 14, 13, 12.5]; // 1
+    //      tree3Values.forEach(x => tree3.add(x));
+
+    //      const tree4Values = [15, 10, 5, 12, 2, 8, 14, 13, 12.5]; // 3
+    //      tree4Values.forEach(x => tree4.add(x));
+
+    //      tree5.add(15) // 0
  
-         // Assert
-         expect(tree2.findMinHeight()).toEqual(3);
-         expect(tree.findMinHeight()).toEqual(3);
+    //      // Assert
+    //      expect(tree5.findMinHeight()).toEqual(0);
+    //      expect(tree4.findMinHeight()).toEqual(3);
+    //      expect(tree3.findMinHeight()).toEqual(1);
+    //      expect(tree2.findMinHeight()).toEqual(2);
+    //      expect(tree.findMinHeight()).toEqual(2);
          
-    });
-
-    // it('FindMaxHeight()', () => {
-    //     // Arrange
-    //     const tree = new BST();
-    //     const tree2 = new BST();
-
-    //     // Act
-    //     const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13, 12.5];
-    //     treeValues.forEach(x => tree.add(x));
-
-    //     const tree2Values = [15, 14, 13, 12, 11, 10, 9, 8, 7, 20, 17];
-    //     tree2Values.forEach(x => tree2.add(x));
-
-    //     // Assert
-    //     expect(tree2.findMaxHeight()).toEqual(9);
-    //     expect(tree.findMaxHeight()).toEqual(6);
-        
     // });
+
+//     it('FindMinHeight()', () => {
+//         // Arrange
+//         const tree = new BST();
+//         const tree2 = new BST();
+//         const tree3 = new BST();
+//         const tree4 = new BST();
+//         const tree5 = new BST();
+
+//         // Act
+//         const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; // 4
+//         treeValues.forEach(x => tree.add(x));
+
+//         const tree2Values = [15, 10, 20, 5, 12, 17, 2, 8, 14, 13, 12.5]; // 5
+//         tree2Values.forEach(x => tree2.add(x));
+
+//         const tree3Values = [15, 10, 20, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+//         tree3Values.forEach(x => tree3.add(x));
+
+//         const tree4Values = [15, 10, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+//         tree4Values.forEach(x => tree4.add(x));
+
+//         tree5.add(15) // 0
+
+//         // Assert
+//         expect(tree5.findMaxHeight()).toEqual(0);
+//         expect(tree4.findMaxHeight()).toEqual(5);
+//         expect(tree3.findMaxHeight()).toEqual(5);
+//         expect(tree2.findMaxHeight()).toEqual(5);
+//         expect(tree.findMaxHeight()).toEqual(4);
+        
+//    });
+
+// it('FindMinHeight()', () => {
+//         // Arrange
+//         const tree = new BST();
+//         const tree2 = new BST();
+//         const tree3 = new BST();
+//         const tree4 = new BST();
+//         const tree5 = new BST();
+
+//         // Act
+//         const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; // 4
+//         treeValues.forEach(x => tree.add(x));
+
+//         const tree2Values = [15, 10, 20, 5, 12, 17, 2, 8, 14, 13, 12.5]; // 5
+//         tree2Values.forEach(x => tree2.add(x));
+
+//         const tree3Values = [15, 10, 20, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+//         tree3Values.forEach(x => tree3.add(x));
+
+//         const tree4Values = [15, 10, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+//         tree4Values.forEach(x => tree4.add(x));
+
+//         tree5.add(15) // 0
+
+//         // Assert
+//         expect(tree5.findMaxHeight()).toEqual(0);
+//         expect(tree4.findMaxHeight()).toEqual(5);
+//         expect(tree3.findMaxHeight()).toEqual(5);
+//         expect(tree2.findMaxHeight()).toEqual(5);
+//         expect(tree.findMaxHeight()).toEqual(4);
+        
+//    });
+
+    it('isBalanced()', () => {
+                // Arrange
+                const tree = new BST();
+                const tree2 = new BST();
+                const tree3 = new BST();
+                const tree4 = new BST();
+                const tree5 = new BST();
+        
+                // Act
+                const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; // 4
+                treeValues.forEach(x => tree.add(x));
+        
+                const tree2Values = [15, 10, 20, 5, 12, 17, 2, 8, 14, 13, 12.5]; // 5
+                tree2Values.forEach(x => tree2.add(x));
+        
+                const tree3Values = [15, 10, 20, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+                tree3Values.forEach(x => tree3.add(x));
+        
+                const tree4Values = [15, 10, 5, 12, 2, 8, 14, 13, 12.5]; // 5
+                tree4Values.forEach(x => tree4.add(x));
+        
+                tree5.add(15) // 0
+        
+                // Assert
+                expect(tree5.isBalanced()).toEqual(true)
+                expect(tree4.isBalanced()).toEqual(false);
+                expect(tree3.isBalanced()).toEqual(false);
+                expect(tree2.isBalanced()).toEqual(false);
+                expect(tree.isBalanced()).toEqual(false);
+                
+           });
     
 })

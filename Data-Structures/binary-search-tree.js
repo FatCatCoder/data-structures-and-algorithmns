@@ -7,7 +7,11 @@ class TreeNode {
         this.right = null
     }
 }
-
+/**
+ * Tree of nodes where each node has a left child which is less and a right child which is of greater value than itself
+ * Any internal node without two children is called a leaf
+ * Any Node with even one child and has a parent is called an internal node
+ */
 class BinarySearchTree {
     constructor(){
         this.root = null;
@@ -108,30 +112,58 @@ class BinarySearchTree {
     }
 
     /** 
+     * Checks if is proper BST
+     */
+
+    isBST(tree){
+        if(tree.root === null) return null;
+
+        let isTypeBST = true;
+
+        checkTree(tree.root); //call
+        function checkTree(node){
+            if(node.left != null){
+                const left = node.left
+                if(left.valve > node.value){
+                    isTypeBST = false;
+                }
+                else checkTree(left)
+            }
+            if(node.right != null){
+                const right = node.right
+                if(right.value < node.value){
+                    isTypeBST = false;
+                }
+                else checkTree(right)
+            }
+        }
+        return isTypeBST;
+    }
+
+    /** 
      * returns lowest branch || -1
      * @type int
      */
     findMinHeight(){
         if(this.root === null) return -1; // null case
         
-        let min = 1;
+        let min;
 
         // looping until every branch node reaches double null leaves, 
-        // sets the min based on less than operator and current level
-        loop(this.root, 1) 
-        function loop(deepNode, level){
-           if(deepNode.left === null || deepNode.right === null){
-            console.log('check   ', deepNode.value, min, level);
-                if(level < min){ min = level }; // if min is already set, do nothing
-           }
-           else{
-               console.log(deepNode.value, min, level);
-               min++;
-               if(deepNode.left !== null) {loop(deepNode.left, ++level)}
-               if(deepNode.right !== null) {loop(deepNode.right, ++level)}
-           }
-        };
-        console.log('MIN: ', min);
+        // sets the min based on less than operator of prev min and current level
+
+        (function loop(deepNode, level){
+
+            // leaf node, set min
+            if(deepNode.left === null && deepNode.right === null){
+                if(level <= min || min === undefined) min = level;
+            }
+            // keep searching valid children nodes
+            if(deepNode.left !== null) loop(deepNode.left, level + 1)
+            if(deepNode.right !== null) loop(deepNode.right, level + 1) 
+
+        } (this.root, 0))
+
         return min;
     }
 
@@ -142,22 +174,35 @@ class BinarySearchTree {
      findMaxHeight(){
         if(this.root === null) return -1; // null case
         
-        let max = 1;
+        let max;
 
         // looping until every branch node reaches double null leaves, 
-        // sets the max based on less than operator and current level
-        loop(this.root, 1) 
-        function loop(deepNode, level){
-           if(deepNode.left === null || deepNode.right === null){
-                return max > level ? null : max = level; // if max is already set, do nothing
-           }
-           else{
-               loop(deepNode.left, ++level)
-               loop(deepNode.right, ++level)
-           }
-        };
-        console.log('MAX: ', max);
+        // sets the max based on greater than operator of prev max and current level
+
+        (function loop(deepNode, level){
+
+            // leaf node, set max
+            if(deepNode.left === null && deepNode.right === null){
+                if(level >= max || max === undefined) max = level;
+            }
+            // keep searching valid children nodes
+            if(deepNode.left !== null) loop(deepNode.left, level + 1)
+            if(deepNode.right !== null) loop(deepNode.right, level + 1) 
+
+        } (this.root, 0))
+
         return max;
+    }
+
+    /**
+     * Min and Max leaf Node levels at least 0 or 1 levels apart
+     * @return boolean
+     */
+    isBalanced(){
+        const diff = this.findMaxHeight() - this.findMinHeight();
+
+        if(diff === 1 || diff === 0) return true
+        else return false
     }
 }
 
