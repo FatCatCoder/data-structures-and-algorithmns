@@ -55,14 +55,4 @@ function Stack() {
     }
 }
 
-let myStack = new Stack();
-myStack.push("hi")
-myStack.push("there")
-myStack.push("friend")
-myStack.print();
-console.log('pop! ',myStack.pop())
-myStack.print();
-console.log('pop! ',myStack.pop())
-myStack.print()
-
 module.exports = Stack;

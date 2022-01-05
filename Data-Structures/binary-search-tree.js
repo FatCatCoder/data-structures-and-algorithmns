@@ -176,9 +176,10 @@ class BinarySearchTree {
         
         let max;
 
-        // looping until every branch node reaches double null leaves, 
-        // sets the max based on greater than operator of prev max and current level
-
+        /*  
+            looping until every branch node reaches double null leaves, 
+            sets the max based on greater than operator of prev max and current level
+        */
         (function loop(deepNode, level){
 
             // leaf node, set max
@@ -204,29 +205,61 @@ class BinarySearchTree {
         if(diff === 1 || diff === 0) return true
         else return false
     }
+
+    // Depth First Search //
+
+    /**
+     * Begin the search at the left-most node until you reach its leaf node, 
+     * then traverse backup moving along to its sibling's leaf,
+     * until ending at the right-most node's leaf
+     * @return Array or Null
+     */
+    inorder(){
+        if(this.root === null) return null; // null case
+        
+        let values = [];
+        let path = [this.root]; // Stack DS
+        let pathDepth = 0;
+        let deepNode = this.root;
+        let stopper = 7;
+
+        (function traverse(node){
+            if(node === null){return null}
+            traverse(node.left)
+            values.push(node.value)
+            traverse(node.right)
+        } (this.root))
+
+        // while(path.length !== 0){
+        // while(stopper !== 0){
+        //     if(deepNode.left !== null){ // find left leaf
+        //         deepNode = deepNode.left;
+        //         pathDepth = path.push(deepNode) - 1;
+        //     }
+        //     else if(deepNode.left === null){
+        //         values.push(path.pop().value); // remove leaf from stack and add to values
+        //         deepNode = path[--pathDepth]; // go up to parent, set height
+        //         if(values.find(x => x === deepNode.value)){
+        //             values.push(deepNode.value); // add parent ie root
+        //         }
+        //         if(deepNode.right !== null) deepNode = deepNode.right;  // traverse the right siblings leftmost path
+                
+        //         console.log(values, pathDepth, path);
+        //     }
+        //     --stopper 
+        // }
+        return values;
+    }
+
+    /**
+     * Explore all the roots before the leaves. 
+     */
+    preorder(){ return null }
+
+    /**
+     * Explore all the leaves before the roots
+     */
+    postorder(){ return null }
 }
 
 module.exports = BinarySearchTree
-
-// const tree = new BinarySearchTree();
-// const tree2 = new BinarySearchTree();
-
-// const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13, 12.5];
-// treeValues.forEach(x => tree.add(x));
-
-// const tree2Values = [15, 14, 13, 12, 11, 10, 9, 8, 7];
-// tree2Values.forEach(x => tree2.add(x));
-
-// log(tree);
-//tree.findMinHeight();
-// console.log(tree2);
-// tree2.findMinHeight();
-//tree.findMaxHeight();
-
-// tree.add(10);
-// tree.add(15);
-// tree.add(5); 
-// tree.add(7);
-// tree.add(2);
-// tree.add(17);
-// tree.add(12);
