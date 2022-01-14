@@ -187,7 +187,35 @@ describe('Binary Search Tree', () => {
                 
     //     });
 
-    it('inorder()', () => {
+    // it('inorder()', () => {
+    //     // Arrange
+    //     const tree = new BST();
+
+    //     // Act
+    //     const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
+    //     treeValues.forEach(x => tree.add(x));
+
+    //     const inorderValues = [2, 5, 8, 10, 13, 14, 12, 17, 20, 15];
+
+    //     // Assert
+    //     expect(tree.inorder()).toEqual(inorderValues);
+    // });
+
+    // it('preorder()', () => {
+    //     // Arrange
+    //     const tree = new BST();
+
+    //     // Act
+    //     const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
+    //     treeValues.forEach(x => tree.add(x));
+
+    //     const preordervalues = [15, 10, 5, 2, 8, 12, 14, 13, 20, 17, 25];
+
+    //     // Assert
+    //     expect(tree.inorder()).toEqual(preordervalues);
+    // });
+
+    it('postorder()', () => {
         // Arrange
         const tree = new BST();
 
@@ -195,12 +223,10 @@ describe('Binary Search Tree', () => {
         const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
         treeValues.forEach(x => tree.add(x));
 
-        const inorderValues = [2, 5, 8, 10, 13, 14, 12, 17, 20, 15];
-
-        console.debug(tree.inorder());
+        const postordervalues = [2, 8, 5, 13, 14, 12, 10, 17, 25, 20, 15];
 
         // Assert
-        expect(tree.inorder()).toEqual(inorderValues);
+        expect(tree.postorder()).toEqual(postordervalues);
     });
     
 })

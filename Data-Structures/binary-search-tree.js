@@ -218,10 +218,6 @@ class BinarySearchTree {
         if(this.root === null) return null; // null case
         
         let values = [];
-        let path = [this.root]; // Stack DS
-        let pathDepth = 0;
-        let deepNode = this.root;
-        let stopper = 7;
 
         (function traverse(node){
             if(node === null){return null}
@@ -229,37 +225,42 @@ class BinarySearchTree {
             values.push(node.value)
             traverse(node.right)
         } (this.root))
-
-        // while(path.length !== 0){
-        // while(stopper !== 0){
-        //     if(deepNode.left !== null){ // find left leaf
-        //         deepNode = deepNode.left;
-        //         pathDepth = path.push(deepNode) - 1;
-        //     }
-        //     else if(deepNode.left === null){
-        //         values.push(path.pop().value); // remove leaf from stack and add to values
-        //         deepNode = path[--pathDepth]; // go up to parent, set height
-        //         if(values.find(x => x === deepNode.value)){
-        //             values.push(deepNode.value); // add parent ie root
-        //         }
-        //         if(deepNode.right !== null) deepNode = deepNode.right;  // traverse the right siblings leftmost path
-                
-        //         console.log(values, pathDepth, path);
-        //     }
-        //     --stopper 
-        // }
         return values;
     }
 
     /**
      * Explore all the roots before the leaves. 
      */
-    preorder(){ return null }
+    preorder(){ 
+        if(this.root === null) return null; // null case
+        
+        let values = [];
+
+        (function traverse(node){
+            if(node === null){return null}
+            values.push(node.value)
+            traverse(node.left)
+            traverse(node.right)
+        } (this.root))
+        return values;
+    }
 
     /**
      * Explore all the leaves before the roots
      */
-    postorder(){ return null }
+    postorder(){ 
+        if(this.root === null) return null; // null case
+        
+        let values = [];
+
+        (function traverse(node){
+            if(node === null){return null}
+            traverse(node.left)
+            traverse(node.right)
+            values.push(node.value)
+        } (this.root))
+        return values;
+     }
 }
 
 module.exports = BinarySearchTree
