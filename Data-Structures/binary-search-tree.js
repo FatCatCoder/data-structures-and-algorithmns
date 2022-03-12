@@ -201,9 +201,7 @@ class BinarySearchTree {
      */
     isBalanced(){
         const diff = this.findMaxHeight() - this.findMinHeight();
-
-        if(diff === 1 || diff === 0) return true
-        else return false
+            return (diff === 1 || diff === 0)? true : false;
     }
 
     // Depth First Search //
@@ -261,6 +259,55 @@ class BinarySearchTree {
         } (this.root))
         return values;
      }
+
+     // Breadth First Searches //
+
+     /**
+      * Goes from left to right, searching each node on the same level
+      * before moving down to the children's level
+      */
+    levelOrder(){
+        if(this.root === null) return null; // null case
+        
+        let queue = [this.root];
+        let values = [];
+
+        while(queue.length > 0){
+            const qNode = queue.shift();
+            values.push(qNode.value);
+
+            if(qNode.left != null) queue.push(qNode.left)
+            if(qNode.right != null) queue.push(qNode.right) 
+        }
+        return values
+    }
+
+    /**
+      * Level order but from right to left
+      */
+    reverseLevelOrder(){
+        if(this.root === null) return null; // null case
+        
+        let queue = [this.root];
+        let values = [];
+
+        while(queue.length > 0){
+            const qNode = queue.shift();
+            values.push(qNode.value);
+
+            if(qNode.right != null) queue.push(qNode.right)
+            if(qNode.left != null) queue.push(qNode.left) 
+        }
+        return values
+    }
 }
+
+const tree = new BinarySearchTree();
+const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
+treeValues.forEach(x => tree.add(x));
+
+const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
+console.log(tree.levelOrder());
+console.log(tree.reverseLevelOrder());
 
 module.exports = BinarySearchTree

@@ -215,18 +215,33 @@ describe('Binary Search Tree', () => {
     //     expect(tree.inorder()).toEqual(preordervalues);
     // });
 
-    it('postorder()', () => {
+    // it('postorder()', () => {
+    //     // Arrange
+    //     const tree = new BST();
+
+    //     // Act
+    //     const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
+    //     treeValues.forEach(x => tree.add(x));
+
+    //     const postordervalues = [2, 8, 5, 13, 14, 12, 10, 17, 25, 20, 15];
+
+    //     // Assert
+    //     expect(tree.postorder()).toEqual(postordervalues);
+    // });
+
+    it('levelOrder()', () => {
         // Arrange
-        const tree = new BST();
+        // const tree = new BST();
 
-        // Act
-        const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
-        treeValues.forEach(x => tree.add(x));
+        // // Act
+        // const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
+        // treeValues.forEach(x => tree.add(x));
 
-        const postordervalues = [2, 8, 5, 13, 14, 12, 10, 17, 25, 20, 15];
+        // const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
+        // console.debug(tree.levelOrder());
 
-        // Assert
-        expect(tree.postorder()).toEqual(postordervalues);
+        // // Assert
+        // expect(tree.levelOrder()).toEqual(levelOrderValues);
     });
     
 })
