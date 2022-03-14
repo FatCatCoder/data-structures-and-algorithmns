@@ -112,6 +112,63 @@ class BinarySearchTree {
     }
 
     /** 
+     * Finds & Returns Node
+     * @param input
+     */
+     findNode(input){
+        if(this.root === null) return false;
+
+        let path = this.root;
+        while(path.value != null){
+            if(path.value === input) return path;
+            
+            while(input > path.value){
+                if(path.right === null) return false; // not found
+                if(path.right === input){
+                    return path;
+                }
+                else path = path.right;
+            }
+            while(input < path.value){
+                if(path.left === null) return false; // not found
+                if(path.left === input){
+                    return path;
+                }
+                else path = path.left;
+            }
+        }
+    }
+
+    /** 
+     * Finds & Returns Parent Node of specified input
+     * @param input
+     */
+     findParentNode(input){
+        if(this.root === null) return false;
+
+        let path = this.root;
+        while(path.value != null){
+            if(path.left.value === input) return path;
+            if(path.right.value === input) return path;
+            
+            while(input > path.value){
+                if(path.right === null) return false; // not found
+                if(path.right.value === input){
+                    return path;
+                }
+                else path = path.right;
+            }
+            while(input < path.value){
+                if(path.left === null) return false; // not found
+                if(path.left.value === input){
+                    return path;
+                }
+                else path = path.left;
+            }
+        }
+    }
+
+    /** 
      * Checks if is proper BST
      */
 
@@ -300,6 +357,21 @@ class BinarySearchTree {
         }
         return values
     }
+    /**
+     * Removes Node From tree, preserving the structure
+     */
+    remove(removable){
+        if(removable == null || !this.isPresent(removable)) return null;
+
+        let FoundNode = this.findNode(removable);
+        log(FoundNode);
+           if(FoundNode.left == null & FoundNode.right == null) { FoundNode = null; return true }
+        //    else if(FoundNode.left == null || FoundNode.right == null) {
+        //         if(FoundNode.left == null) FoundNode = FoundNode.right
+        //         if(FoundNode.right == null) FoundNode = FoundNode.left
+        //         return true; 
+        //     }
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -307,7 +379,9 @@ const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 treeValues.forEach(x => tree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
-console.log(tree.levelOrder());
-console.log(tree.reverseLevelOrder());
+log(tree.findParentNode(14))
+// log(tree.levelOrder());
+// log(tree.remove(13));
+// log(tree.levelOrder());
 
 module.exports = BinarySearchTree
