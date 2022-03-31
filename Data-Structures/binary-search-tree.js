@@ -363,14 +363,25 @@ class BinarySearchTree {
     remove(removable){
         if(removable == null || !this.isPresent(removable)) return null;
 
-        let FoundNode = this.findNode(removable);
-        log(FoundNode);
-           if(FoundNode.left == null & FoundNode.right == null) { FoundNode = null; return true }
-        //    else if(FoundNode.left == null || FoundNode.right == null) {
-        //         if(FoundNode.left == null) FoundNode = FoundNode.right
-        //         if(FoundNode.right == null) FoundNode = FoundNode.left
-        //         return true; 
-        //     }
+        let FoundNode = this.findParentNode(removable);
+
+        if(FoundNode.left.value == removable){
+            if(FoundNode.left.left == null & FoundNode.left.right == null) // Leaf
+                FoundNode.left = null;
+            else if(FoundNode.left.left == null) // One Child Right =>
+                FoundNode.left = FoundNode.left.right; 
+            else if(FoundNode.left.right == null) // On Child Left <=
+                FoundNode.left = FoundNode.left.left;    
+        }
+        else{
+            if(FoundNode.right.right == null & FoundNode.right.left == null)
+                FoundNode.right = null;
+            else if(FoundNode.right.left == null)
+                FoundNode.right = FoundNode.right.right;
+            else if(FoundNode.right.right == null)
+                FoundNode.right = FoundNode.right.left;
+        }
+        return true;
     }
 }
 
@@ -379,8 +390,9 @@ const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 treeValues.forEach(x => tree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
-log(tree.findParentNode(14))
-// log(tree.levelOrder());
+log(tree.findParentNode(12))
+log(tree.remove(12));
+log(tree.levelOrder());
 // log(tree.remove(13));
 // log(tree.levelOrder());
 
