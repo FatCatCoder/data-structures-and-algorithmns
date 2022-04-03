@@ -17,6 +17,10 @@ class BinarySearchTree {
         this.root = null;
     }
 
+    static GetTree(){
+        return this;
+    }
+
     /** 
      * returns undefined on success or null on fail
      * @param input
@@ -76,6 +80,25 @@ class BinarySearchTree {
         while(path.value != null){
             if(path.right === null){
                 if (path.value > found){ found = path.value}
+                break;
+            }
+            path = path.right;
+        }
+        return found;
+    }
+
+    /** 
+     * returns largest Node or null
+     */
+     findMaxNode(startNode){
+        if(this.root === null) return null; // catch empty
+
+        let path = startNode;
+        let found = startNode.value;
+        
+        while(path.value != null){
+            if(path.right === null){
+                if (path.value > found){ found = path}
                 break;
             }
             path = path.right;
@@ -357,29 +380,69 @@ class BinarySearchTree {
         }
         return values
     }
+
+    maxLeafNode(startNode = null){
+        if(startNode == null) startNode = root;
+        else if(startNode != typeof(Node)) startNode = this.findNode(startNode)
+
+        while(startNode != null){
+            if(startNode.right == null & startNode.left == null) return startNode
+            else startNode = startNode.right ?? startNode.left
+        }
+        return startNode;
+    }
+
+    minLeafNode(startNode = null){
+        if(startNode == null) startNode = root;
+        else if(startNode != typeof(Node)) startNode = this.findNode(startNode)
+
+        while(startNode != null){
+            if(startNode.left == null) return startNode
+            else startNode = startNode.left
+        }
+        return startNode;
+    }
     /**
      * Removes Node From tree, preserving the structure
      */
     remove(removable){
         if(removable == null || !this.isPresent(removable)) return null;
 
-        let FoundNode = this.findParentNode(removable);
+        let FoundNodeParent = this.findParentNode(removable);
+        let FoundNode = FoundNodeParent.left.value == removable? 
+            FoundNodeParent.left : FoundNodeParent.right;
 
-        if(FoundNode.left.value == removable){
-            if(FoundNode.left.left == null & FoundNode.left.right == null) // Leaf
-                FoundNode.left = null;
-            else if(FoundNode.left.left == null) // One Child Right =>
-                FoundNode.left = FoundNode.left.right; 
-            else if(FoundNode.left.right == null) // On Child Left <=
-                FoundNode.left = FoundNode.left.left;    
+        const TwoChildrenLeft = (MaxNode) => {
+            let MaxNodeParent = this.findMaxNode(MaxNode);
+            log(MaxNodeParent)
+            FoundNodeParent.left.value = MaxNode.value;
+            MaxNodeParent.right != null? MaxNodeParent.right = null: MaxNodeParent.left = null;
+        }
+
+        const TwoChildrenRight= (MaxNodeParent, MaxNode) => {
+            FoundNodeParent.left.value = MaxNode.value;
+            MaxNodeParent.right != null? MaxNodeParent.right = null: MaxNodeParent.left = null;
+        }
+
+        if(FoundNodeParent.left.value == removable){
+            if(FoundNodeParent.left.left == null & FoundNodeParent.left.right == null) // Leaf
+                FoundNodeParent.left = null;
+            else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
+                TwoChildrenLeft(FoundNode.left);
+            else if(FoundNodeParent.left.left == null) // One Child Right =>
+                FoundNodeParent.left = FoundNodeParent.left.right; 
+            else if(FoundNodeParent.left.right == null) // On Child Left <=
+                FoundNodeParent.left = FoundNodeParent.left.left;    
         }
         else{
-            if(FoundNode.right.right == null & FoundNode.right.left == null)
-                FoundNode.right = null;
-            else if(FoundNode.right.left == null)
-                FoundNode.right = FoundNode.right.right;
-            else if(FoundNode.right.right == null)
-                FoundNode.right = FoundNode.right.left;
+            if(FoundNodeParent.right.right == null & FoundNodeParent.right.left == null)
+                FoundNodeParent.right = null;
+            else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
+                TwoChildrenRight(FoundNodeParent.right.left, this.findMaxNode(FoundNodeParent.right.left));
+            else if(FoundNodeParent.right.left == null)
+                FoundNodeParent.right = FoundNodeParent.right.right;
+            else if(FoundNodeParent.right.right == null)
+                FoundNodeParent.right = FoundNodeParent.right.left;
         }
         return true;
     }
@@ -390,9 +453,15 @@ const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 treeValues.forEach(x => tree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
-log(tree.findParentNode(12))
-log(tree.remove(12));
+log(tree.maxLeafNode(10));
+log(tree.minLeafNode(10));
 log(tree.levelOrder());
+// log(tree.remove(10));
+// log(tree.levelOrder());
+// log(tree.findMaxNode(tree.findParentNode(12)))
+// log(tree.findParentNode(10))
+// log(tree.remove(10));
+// log(tree.levelOrder());
 // log(tree.remove(13));
 // log(tree.levelOrder());
 
