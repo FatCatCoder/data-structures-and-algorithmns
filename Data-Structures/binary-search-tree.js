@@ -136,7 +136,7 @@ class BinarySearchTree {
 
     /** 
      * Finds & Returns Node
-     * @param input
+     * @param input - Type: value
      */
      findNode(input){
         if(this.root === null) return false;
@@ -164,7 +164,7 @@ class BinarySearchTree {
 
     /** 
      * Finds & Returns Parent Node of specified input
-     * @param input
+     * @param input - Type: value
      */
      findParentNode(input){
         if(this.root === null) return false;
@@ -381,9 +381,14 @@ class BinarySearchTree {
         return values
     }
 
+    /**
+     * 
+     * @param startNode - Type: TreeNode
+     * @returns TreeNode
+     */
     maxLeafNode(startNode = null){
         if(startNode == null) startNode = root;
-        else if(startNode != typeof(Node)) startNode = this.findNode(startNode)
+        else if(!(startNode instanceof TreeNode)) startNode = this.findNode(startNode)
 
         while(startNode != null){
             if(startNode.right == null & startNode.left == null) return startNode
@@ -392,9 +397,14 @@ class BinarySearchTree {
         return startNode;
     }
 
+    /**
+     * 
+     * @param startNode - Type: TreeNode
+     * @returns TreeNode
+     */
     minLeafNode(startNode = null){
         if(startNode == null) startNode = root;
-        else if(startNode != typeof(Node)) startNode = this.findNode(startNode)
+        else if(!(startNode instanceof TreeNode)) startNode = this.findNode(startNode)
 
         while(startNode != null){
             if(startNode.left == null) return startNode
@@ -412,11 +422,12 @@ class BinarySearchTree {
         let FoundNode = FoundNodeParent.left.value == removable? 
             FoundNodeParent.left : FoundNodeParent.right;
 
-        const TwoChildrenLeft = (MaxNode) => {
-            let MaxNodeParent = this.findMaxNode(MaxNode);
-            log(MaxNodeParent)
-            FoundNodeParent.left.value = MaxNode.value;
-            MaxNodeParent.right != null? MaxNodeParent.right = null: MaxNodeParent.left = null;
+        const TwoChildren = (DeletionNode) => {
+            let Leaf = tree.maxLeafNode(DeletionNode)
+            let LeafParent = this.findParentNode(Leaf.value)
+
+            DeletionNode.value = Leaf.value; // replace empty node
+            LeafParent.left == Leaf? LeafParent.left = null: LeafParent.right = null; // remove ref
         }
 
         const TwoChildrenRight= (MaxNodeParent, MaxNode) => {
@@ -428,7 +439,7 @@ class BinarySearchTree {
             if(FoundNodeParent.left.left == null & FoundNodeParent.left.right == null) // Leaf
                 FoundNodeParent.left = null;
             else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
-                TwoChildrenLeft(FoundNode.left);
+                TwoChildren(FoundNode);
             else if(FoundNodeParent.left.left == null) // One Child Right =>
                 FoundNodeParent.left = FoundNodeParent.left.right; 
             else if(FoundNodeParent.left.right == null) // On Child Left <=
@@ -438,7 +449,7 @@ class BinarySearchTree {
             if(FoundNodeParent.right.right == null & FoundNodeParent.right.left == null)
                 FoundNodeParent.right = null;
             else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
-                TwoChildrenRight(FoundNodeParent.right.left, this.findMaxNode(FoundNodeParent.right.left));
+                TwoChildren(FoundNode);
             else if(FoundNodeParent.right.left == null)
                 FoundNodeParent.right = FoundNodeParent.right.right;
             else if(FoundNodeParent.right.right == null)
@@ -453,11 +464,11 @@ const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 treeValues.forEach(x => tree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
-log(tree.maxLeafNode(10));
-log(tree.minLeafNode(10));
+// log(tree.maxLeafNode(10));
+// log(tree.minLeafNode(10));
 log(tree.levelOrder());
-// log(tree.remove(10));
-// log(tree.levelOrder());
+log(tree.remove(20));
+log(tree.levelOrder());
 // log(tree.findMaxNode(tree.findParentNode(12)))
 // log(tree.findParentNode(10))
 // log(tree.remove(10));
