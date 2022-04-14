@@ -17,10 +17,6 @@ class BinarySearchTree {
         this.root = null;
     }
 
-    static GetTree(){
-        return this;
-    }
-
     /** 
      * returns undefined on success or null on fail
      * @param input
@@ -416,7 +412,19 @@ class BinarySearchTree {
      * Removes Node From tree, preserving the structure
      */
     remove(removable){
-        if(removable == null || !this.isPresent(removable)) return null;
+        if(removable == null || !this.isPresent(removable)) return null; // base
+
+        if(this.root.value == removable){ // base root delete
+            if(this.root.left == null & this.root.right == null){
+                this.root = null;
+                return true;
+            }
+
+            let Leaf = tree.maxLeafNode(this.root)
+            this.root.value = Leaf.value; // replace empty node
+            this.root.left == Leaf? this.root.left = null: this.root.right = null; // remove ref
+            return true;
+        }
 
         let FoundNodeParent = this.findParentNode(removable);
         let FoundNode = FoundNodeParent.left.value == removable? 
@@ -467,7 +475,7 @@ const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 // log(tree.maxLeafNode(10));
 // log(tree.minLeafNode(10));
 log(tree.levelOrder());
-log(tree.remove(20));
+log(tree.remove(5));
 log(tree.levelOrder());
 // log(tree.findMaxNode(tree.findParentNode(12)))
 // log(tree.findParentNode(10))
