@@ -408,61 +408,40 @@ class BinarySearchTree {
         }
         return startNode;
     }
+
+    ReplaceNode(OldNode, NewNode = null){
+        let removable = OldNode.value;
+        if(OldNode != this.root) OldNode = this.findParentNode(removable)
+        
+        if(OldNode.left != null & OldNode.right != null & OldNode.left.value != removable & OldNode.right.value != removable){
+            let Leaf = NewNode ?? tree.maxLeafNode(OldNode)
+            let LeafParent = this.findParentNode(Leaf.value)
+
+            OldNode.value = Leaf.value; // replace empty node
+            LeafParent.left == Leaf? LeafParent.left = null: LeafParent.right = null; // remove ref
+        }
+        else{
+            OldNode.left.value==removable? 
+            OldNode.left = NewNode : OldNode.right = NewNode;
+        }
+    }
+
     /**
      * Removes Node From tree, preserving the structure
      */
     remove(removable){
         if(removable == null || !this.isPresent(removable)) return null; // base
 
-        if(this.root.value == removable){ // base root delete
-            if(this.root.left == null & this.root.right == null){
-                this.root = null;
-                return true;
-            }
+        let FNode = this.findNode(removable)
+        // Zero Children
+        if(FNode.right == null & FNode.left == null)
+            this.ReplaceNode(FNode, null);
+        // One Child
+        else if(FNode.right == null || FNode.left == null)
+            this.ReplaceNode(FNode, FNode.right ?? FNode.left);
+        // Two Children
+        else this.ReplaceNode(FNode)
 
-            let Leaf = tree.maxLeafNode(this.root)
-            this.root.value = Leaf.value; // replace empty node
-            this.root.left == Leaf? this.root.left = null: this.root.right = null; // remove ref
-            return true;
-        }
-
-        let FoundNodeParent = this.findParentNode(removable);
-        let FoundNode = FoundNodeParent.left.value == removable? 
-            FoundNodeParent.left : FoundNodeParent.right;
-
-        const TwoChildren = (DeletionNode) => {
-            let Leaf = tree.maxLeafNode(DeletionNode)
-            let LeafParent = this.findParentNode(Leaf.value)
-
-            DeletionNode.value = Leaf.value; // replace empty node
-            LeafParent.left == Leaf? LeafParent.left = null: LeafParent.right = null; // remove ref
-        }
-
-        const TwoChildrenRight= (MaxNodeParent, MaxNode) => {
-            FoundNodeParent.left.value = MaxNode.value;
-            MaxNodeParent.right != null? MaxNodeParent.right = null: MaxNodeParent.left = null;
-        }
-
-        if(FoundNodeParent.left.value == removable){
-            if(FoundNodeParent.left.left == null & FoundNodeParent.left.right == null) // Leaf
-                FoundNodeParent.left = null;
-            else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
-                TwoChildren(FoundNode);
-            else if(FoundNodeParent.left.left == null) // One Child Right =>
-                FoundNodeParent.left = FoundNodeParent.left.right; 
-            else if(FoundNodeParent.left.right == null) // On Child Left <=
-                FoundNodeParent.left = FoundNodeParent.left.left;    
-        }
-        else{
-            if(FoundNodeParent.right.right == null & FoundNodeParent.right.left == null)
-                FoundNodeParent.right = null;
-            else if (FoundNodeParent.left.left != null & FoundNodeParent.left.right != null) // Two Children
-                TwoChildren(FoundNode);
-            else if(FoundNodeParent.right.left == null)
-                FoundNodeParent.right = FoundNodeParent.right.right;
-            else if(FoundNodeParent.right.right == null)
-                FoundNodeParent.right = FoundNodeParent.right.left;
-        }
         return true;
     }
 }
@@ -472,16 +451,9 @@ const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 treeValues.forEach(x => tree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
-// log(tree.maxLeafNode(10));
-// log(tree.minLeafNode(10));
+
 log(tree.levelOrder());
-log(tree.remove(5));
+log(tree.remove(8));
 log(tree.levelOrder());
-// log(tree.findMaxNode(tree.findParentNode(12)))
-// log(tree.findParentNode(10))
-// log(tree.remove(10));
-// log(tree.levelOrder());
-// log(tree.remove(13));
-// log(tree.levelOrder());
 
 module.exports = BinarySearchTree
