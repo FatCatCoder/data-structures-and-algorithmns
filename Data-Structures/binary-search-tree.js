@@ -444,6 +444,17 @@ class BinarySearchTree {
 
         return true;
     }
+
+    invert(path = null, init = null){
+        if (path==null && init == null) path = this.root;
+        else if(path == null) return; // removes the need to call by passing the root
+        let temp = path.left;
+        path.left = path.right;
+        path.right = temp;
+
+        this.invert(path.left, 1);
+        this.invert(path.right, 1);
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -453,7 +464,7 @@ treeValues.forEach(x => tree.add(x));
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 
 log(tree.levelOrder());
-log(tree.remove(8));
+log(tree.invert());
 log(tree.levelOrder());
 
 module.exports = BinarySearchTree
