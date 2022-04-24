@@ -43,12 +43,43 @@ class Trie {
 
     /** gets all words in trie as array  */
     print () {
-        let path = this.root;
         let arr: string[] = [];
 
-        while(path != null){
-            
+        const getWord = (x: TrieNode, y: string, z: Map<any, any>) => {
+            let path = x;
+            let currChar: string = y;
+            let tmp: string = '';
+
+            // while(true){
+            //     // if(path == undefined || path == null || path.keys.size == 0 && path.isEnd()){
+            //     //     tmp += currChar;
+            //     //     arr.unshift(tmp);
+            //     //     tmp = '';
+            //     //     break;
+            //     // }
+            //     // else if (path.isEnd()){
+            //     //     tmp += currChar;
+            //     //     arr.unshift(tmp);
+            //     // }
+            //     // else{
+            //     //     tmp += currChar;
+            //     //     currChar = z.get(y);
+            //     // }
+                
+            //     path = z.get(y);
+            // }
         }
+
+        this.root.keys.forEach((x, y, z) => {
+            log(x instanceof TrieNode)
+            log(y instanceof String)
+            log(z instanceof Map)
+            // log(x, 'BREAK', y, 'BREAK', z)
+            getWord(x,y,z);
+        });
+
+        // console.log(arr);
+        return arr;       
     } 
 };
 
