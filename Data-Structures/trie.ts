@@ -1,4 +1,5 @@
 const log = require('../utils/prettyprint') 
+const util = require('util');
 
 class TrieNode {
   keys = new Map();
@@ -24,6 +25,7 @@ class Trie {
 
         newStr.split('').forEach((elm, idx) => {
             const NextPath: TrieNode = new TrieNode;
+
             if(idx == newStr.length-1){
                 NextPath.setEnd()
                 path.keys.set(elm, NextPath);
@@ -43,49 +45,64 @@ class Trie {
 
     /** gets all words in trie as array  */
     print () {
-        let arr: string[] = [];
-
-        const getWord = (x: TrieNode, y: string, z: Map<any, any>) => {
-            let path = x;
-            let currChar: string = y;
-            let tmp: string = '';
-
-            // while(true){
-            //     // if(path == undefined || path == null || path.keys.size == 0 && path.isEnd()){
-            //     //     tmp += currChar;
-            //     //     arr.unshift(tmp);
-            //     //     tmp = '';
-            //     //     break;
-            //     // }
-            //     // else if (path.isEnd()){
-            //     //     tmp += currChar;
-            //     //     arr.unshift(tmp);
-            //     // }
-            //     // else{
-            //     //     tmp += currChar;
-            //     //     currChar = z.get(y);
-            //     // }
-                
-            //     path = z.get(y);
-            // }
+        const words: string[] = [];
+    
+        function Loop(root: any, word: any) {
+          if (root.keys.size != 0) {
+            root.keys.forEach((value: any,key: any,map: any) => {
+              Loop(value, word.concat(key));
+           })
+            if (root.isEnd()) {
+              words.push(word);
+            }
+          }
+          else {
+            word.length > 0 ? words.push(word) : undefined;
+            return;
+          }
         }
+        
+        Loop(this.root, "");
+        return words;
+      };
 
-        this.root.keys.forEach((x, y, z) => {
-            log(x instanceof TrieNode)
-            log(y instanceof String)
-            log(z instanceof Map)
-            // log(x, 'BREAK', y, 'BREAK', z)
-            getWord(x,y,z);
-        });
+      findEndWord(){
+          let path = this.root;
+          let strings = [];
+          let string = "";
 
-        // console.log(arr);
-        return arr;       
-    } 
+          while(!path.isEnd() && path.keys.size != 0){
+            log(path.keys.keys().next().value)
+
+           
+            string += path.keys.keys().next().value;
+
+            if(path.isEnd()){
+                strings.push(string)
+            }
+            path = path.keys.values().next().value;
+          }
+
+          log(path)
+          return string;
+      }
 };
 
 const tree = new Trie;
-tree.add("hell");
+tree.add("he");
 tree.add("help");
 tree.add("hello");
-// log(tree);
-tree.print();
+tree.add("all");
+tree.add("al");
+tree.add("zoe");
+tree.add("zoo");
+
+// log(tree.root.keys.keys())
+
+// log(tree.findEndWord());
+// log(tree.root.keys.keys().next().value)
+
+
+// log(tree.root.keys.keys().next().value)
+
+log(tree.print());
