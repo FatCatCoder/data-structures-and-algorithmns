@@ -4,6 +4,7 @@ const util = require('util');
 class TrieNode {
   keys = new Map();
   end = false;
+
   setEnd = () => {
     this.end = true;
   };
@@ -40,16 +41,47 @@ class Trie {
         });
     } 
 
+    delete(delWord: string): boolean{
+      if(!this.hasWord(delWord)) return false
+
+      let root = this.root;
+
+      delWord.split("").forEach((letter, index) => {
+          if (index == delWord.length-1 && root.isEnd()) {
+            if(root.keys.size <= 1){
+                root.keys.delete(letter);
+            }
+            else root.keys.get(letter).setEnd(false);
+          }
+
+          console.log(letter, root.keys.get(letter).keys.keys().next().value);
+          console.log(JSON.stringify(root.keys.keys()));
+          root = root.keys.get(letter); 
+      });
+
+      return true
+    }
+
     /** gets single word selection  */
-    isWord () {} 
+    hasWord (findWord: string): boolean {
+        let root = this.root;
+
+        return findWord.split("").every((letter, index) => {
+            if(root.keys.has(letter)){
+                root = root.keys.get(letter);
+                return (index == findWord.length-1 && !root?.isEnd())?  
+                false: true
+            } else return false
+        });
+    } 
 
     /** gets all words in trie as array  */
-    print () {
+    print (): string[] {
         const words: string[] = [];
     
         function Loop(root: any, word: any) {
           if (root.keys.size != 0) {
-            root.keys.forEach((value: any,key: any,map: any) => {
+            root.keys.forEach((value: any,key: any, map: any) => {
               Loop(value, word.concat(key));
            })
             if (root.isEnd()) {
@@ -63,46 +95,22 @@ class Trie {
         }
         
         Loop(this.root, "");
+
         return words;
       };
-
-      findEndWord(){
-          let path = this.root;
-          let strings = [];
-          let string = "";
-
-          while(!path.isEnd() && path.keys.size != 0){
-            log(path.keys.keys().next().value)
-
-           
-            string += path.keys.keys().next().value;
-
-            if(path.isEnd()){
-                strings.push(string)
-            }
-            path = path.keys.values().next().value;
-          }
-
-          log(path)
-          return string;
-      }
 };
 
 const tree = new Trie;
-tree.add("he");
-tree.add("help");
-tree.add("hello");
-tree.add("all");
-tree.add("al");
-tree.add("zoe");
-tree.add("zoo");
+      tree.add("he");
+      tree.add("help");
+      tree.add("hello");
+      tree.add("all");
+      tree.add("al");
+      tree.add("zoe");
+      tree.add("zoo");
 
-// log(tree.root.keys.keys())
+log(tree.print());
 
-// log(tree.findEndWord());
-// log(tree.root.keys.keys().next().value)
-
-
-// log(tree.root.keys.keys().next().value)
+log(tree.delete("hello"))
 
 log(tree.print());
