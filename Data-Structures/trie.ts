@@ -11,6 +11,9 @@ class TrieNode {
   isEnd = () => {
     return this.end;
   };
+  unSetEnd = () => {
+    this.end = false;
+  }
 };
 
 
@@ -47,15 +50,27 @@ class Trie {
       let root = this.root;
 
       delWord.split("").forEach((letter, index) => {
-          if (index == delWord.length-1 && root.isEnd()) {
-            if(root.keys.size <= 1){
+          if (index == delWord.length-1 && root.keys.get(letter).isEnd()) {
+            if(root.keys.get(letter)?.keys?.size == 0){ //root.keys.size <= 1 && 
                 root.keys.delete(letter);
             }
-            else root.keys.get(letter).setEnd(false);
+            else root.keys.get(letter).unSetEnd();
           }
 
-          console.log(letter, root.keys.get(letter).keys.keys().next().value);
-          console.log(JSON.stringify(root.keys.keys()));
+          // // displays letters and next letter of keys
+          // let allkeys : any= [];
+          // for(let i of root.keys.keys()){
+          //   let tmp : any= [];
+          //   for(let z of root.keys.get(i).keys.keys()){
+              
+          //     tmp.push(z)
+          //   }
+          //   allkeys.push({letter: i, next: tmp})
+          // }
+
+          // console.log(letter, 
+          //   JSON.stringify({keys: allkeys, end: root.isEnd()}), 
+          //   root.keys.get(letter).keys.keys().next().value);
           root = root.keys.get(letter); 
       });
 
@@ -98,12 +113,51 @@ class Trie {
 
         return words;
       };
+
+      // Recursive function to delete a key from given Trie
+ remove(root: any,key: any ,depth: any)
+{
+    // If tree is empty
+        if (root == null)
+            return null;
+  
+        // If last character of key is being processed
+        if (depth == key.length) {
+  
+            // This node is no more end of word after
+            // removal of given key
+            if (root.isEnd())
+                root.unSetEnd();
+  
+            // If given is not prefix of any other word
+            if (root.keys.size == 0) {
+                root = null;
+            }
+  
+            return root;
+        }
+  
+        // If not last character, recur for the child
+        // obtained using ASCII value
+        let index = key[depth].charCodeAt(0) - 'a'.charCodeAt(0);
+        root.children[index] =
+            this.remove(root.children[index], key, depth + 1);
+  
+        // If root does not have any child (its only child got
+        // deleted), and it is not end of another word.
+        if (root.keys.size==0 && root.isEnd() == false){
+            root = null;
+        }
+  
+        return root;
+}
 };
 
 const tree = new Trie;
       tree.add("he");
       tree.add("help");
       tree.add("hello");
+      // tree.add("hells");
       tree.add("all");
       tree.add("al");
       tree.add("zoe");
@@ -111,6 +165,7 @@ const tree = new Trie;
 
 log(tree.print());
 
-log(tree.delete("hello"))
+// log(tree.delete("hello"))
+tree.remove(tree.root, "hello", "hello".length)
 
 log(tree.print());
