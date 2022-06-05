@@ -34,7 +34,7 @@ class Trie {
                 NextPath.setEnd()
                 if(!path.keys.has(elm))
                      path.keys.set(elm, NextPath);
-                else path.setEnd()
+                else path.keys.get(elm).setEnd()
             }
 
             else if (!path.keys.has(elm)) {
@@ -68,7 +68,7 @@ class Trie {
           root = root.keys.get(letter); 
       });
 
-      // Clean up
+      // Clean up (removes dead nodes after deletion)
       const CleanUp = () => {
         root = this.root;
       
@@ -130,9 +130,9 @@ const tree = new Trie;
       tree.add("help");
       tree.add("hello");
       tree.add("hellos");
-      tree.add("al");
-      tree.add("all");
       // tree.add("al");
+      tree.add("all");
+      tree.add("al");
       tree.add("zoe");
       tree.add("zoo");
 
