@@ -12,8 +12,17 @@ class MaxHeap{
     private rightNode = (parentIndex: number): number => this.root[((parentIndex * 2) + 2)];
     private parentNode = (childIndex: number): number => this.root[(childIndex % 2 == 0)? Math.floor(((childIndex - 2) / 2)): Math.floor(((childIndex - 1) / 2))];
     
+    values = () => this.root;
+
     add(value: number){
         this.maxHeapify(this.root.push(value) - 1);
+    }
+
+    remove(value: number){
+        let idx = this.root.indexOf(value);
+
+        this.root = this.root.filter(x => x != value)
+        this.maxHeapify(idx);
     }
 
     maxHeapify(index: number){        
@@ -34,4 +43,8 @@ treeValues.forEach(x => HeapTree.add(x));
 
 const levelOrderValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13];
 
-logger(HeapTree);
+logger(HeapTree.values())
+
+HeapTree.remove(14);
+
+logger(HeapTree.values())
