@@ -1,39 +1,24 @@
-const logger = require('../utils/prettyprint') 
-
-class TreeNode {
-    value?: number;
-    left?: TreeNode;
-    right?: TreeNode;
-    constructor(value?: number){
-        this.value = value;
-        this.left = undefined;
-        this.right = undefined
-    }
-}
+const logger = require('../utils/prettyprint');
+import { swap } from '../utils/arrayMutations';
 
 class MaxHeap{
-    private root?: TreeNode;
+    private root: number[];
 
     constructor(){
-        this.root = undefined;
+        this.root = [];
     }
+
+    private leftNode = (parentIndex: number): number => this.root[((parentIndex * 2) + 1)];
+    private rightNode = (parentIndex: number): number => this.root[((parentIndex * 2) + 2)];
+    private parentNode = (childIndex: number): number => this.root[(childIndex % 2 == 0)? Math.floor(((childIndex - 2) / 2)): Math.floor(((childIndex - 1) / 2))];
     
-    add(value: number,  pathRoot: TreeNode | null = null){
-        if(this.root == undefined) this.root = new TreeNode(value);
-
-        // let path = this.root;
-
-        const Insert = (parent: TreeNode) => {
-            if(parent.left?.value == undefined) parent.left = new TreeNode(value);
-            else if(parent.right?.value == undefined) parent.right = new TreeNode(value);
-
-            else{
-
-                if(parent.left != undefined) Insert(parent.left)
-                if(parent.right != undefined) Insert(parent.right)
+    add(value: number){
+        if(this.root[this.root.push(value) - 2] < value){
+            let pos = this.root.length - 1;
+            while(pos != 0 && this.root[pos] > this.root[this.parentNode(pos)]){
+                if(this.parentNode(pos) > value)
             }
-        }      
-        Insert(this.root)  
+        }
     }
 }
 
