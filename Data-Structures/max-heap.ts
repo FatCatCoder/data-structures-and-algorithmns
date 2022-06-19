@@ -13,11 +13,16 @@ class MaxHeap{
     private parentNode = (childIndex: number): number => this.root[(childIndex % 2 == 0)? Math.floor(((childIndex - 2) / 2)): Math.floor(((childIndex - 1) / 2))];
     
     add(value: number){
-        if(this.root[this.root.push(value) - 2] < value){
-            let pos = this.root.length - 1;
-            while(pos != 0 && this.root[pos] > this.root[this.parentNode(pos)]){
-                if(this.parentNode(pos) > value)
-            }
+        this.maxHeapify(this.root.push(value) - 1);
+    }
+
+    maxHeapify(index: number){        
+            let pos = index;
+            let parentIdx = (Math.floor((pos-1)/2));
+            while(pos > 0 && this.root[pos] > this.root[parentIdx]){
+                swap(this.root, pos, parentIdx)
+                pos = parentIdx;
+                parentIdx = (Math.floor((parentIdx-1)/2))
         }
     }
 }
