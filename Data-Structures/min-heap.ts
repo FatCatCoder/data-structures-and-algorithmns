@@ -1,7 +1,7 @@
 const logger = require('../utils/prettyprint');
 import { swap } from '../utils/arrayMutations';
 
-class MaxHeap{
+class MinHeap{
     private root: number[];
 
     constructor(){
@@ -30,7 +30,7 @@ class MaxHeap{
             let pos = index;
             let parentIdx = this.parentIndex(pos);
             
-            while(pos > 0 && this.root[pos] > this.root[parentIdx]){
+            while(pos > 0 && this.root[pos] < this.root[parentIdx]){
                 swap(this.root, pos, parentIdx)
                 pos = parentIdx;
                 parentIdx = this.parentIndex(parentIdx)
@@ -39,7 +39,7 @@ class MaxHeap{
 }
 
 
-const HeapTree = new MaxHeap();
+const HeapTree = new MinHeap();
 const treeValues = [15, 10, 20, 5, 12, 17, 25, 2, 8, 14, 13]; 
 treeValues.forEach(x => HeapTree.add(x));
 
