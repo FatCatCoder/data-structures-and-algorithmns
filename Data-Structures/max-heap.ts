@@ -1,7 +1,13 @@
 const logger = require('../utils/prettyprint');
 import { swap } from '../utils/arrayMutations';
 
+/**
+ * Complete Tree like structure where each root node 
+ * is always the largest value of its desendants
+ *  
+ */
 class MaxHeap{
+    // Implemented with Array over Nodes for memory savings && fasting indexing
     private root: number[];
 
     constructor(){
@@ -26,6 +32,8 @@ class MaxHeap{
         this.heapify(idx);
     }
 
+    // after every node postion change run bubbling method to confirm tree
+    // still meets the definition
     heapify(index: number){        
             let pos = index;
             let parentIdx = this.parentIndex(pos);
