@@ -18,8 +18,8 @@
  * Top-Down data store for recently added and removed, Last one in, Is First one out
  * @class init new empty array
  */
-function Stack() {
-    let collection = [];
+function Stack(this: any) {
+    let collection: any = [];
 
     this.print = function() {
       console.log(collection);
@@ -32,7 +32,7 @@ function Stack() {
 
     /** adds item to top 
      * @param item - new item to add */ 
-    this.push = function(item){
+    this.push = function(item: any){
         collection.push(item)
     }
 
@@ -55,4 +55,5 @@ function Stack() {
     }
 }
 
+export { Stack }
 module.exports = Stack;
