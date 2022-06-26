@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "ts-node",
-            "type": "node",
+            "type": "pwa-node", //node
             "request": "launch",
             "args": [
                 "${relativeFile}"

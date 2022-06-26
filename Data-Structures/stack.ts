@@ -25,7 +25,7 @@ function Stack(this: any) {
       console.log(collection);
     };
     /** removes and returns top item */ 
-    this.pop = function(){
+    this.pop = function(): any{
         const temp = collection.splice(collection.length - 1, 1);
         return temp[0]
     }
