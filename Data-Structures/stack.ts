@@ -37,12 +37,12 @@ function Stack(this: any) {
     }
 
     /** returns top item */ 
-    this.peek = function(){
+    this.peek = function(): any[] {
         return collection[collection.length - 1]
     }
 
     /** checks if empty */ 
-    this.isEmpty = function(){
+    this.isEmpty = function(): boolean {
       if(collection.length === 0){
         return true
       }
@@ -50,7 +50,7 @@ function Stack(this: any) {
     }
 
     /** clears all items in the stack */
-    this.clear = function(){
+    this.clear = function(): void {
       collection = [];
     }
 }
