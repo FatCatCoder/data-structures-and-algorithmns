@@ -10,21 +10,32 @@
 */
 
 // TODO - convert to TS
+class SetItem<T>{
+  public Key: T;
+  public Value: any;
+
+  constructor(KeyItem: T, ValueItem: any){
+    this.Key = KeyItem;
+    this.Value = ValueItem;
+  }
+}
 
 /**
  * Collection of unique items
  * @class init new set
  */
- class Set {
-  constructor() {
-    // Dictionary will hold the items of our set
-    this.dictionary = {};
+ class Set<T> {
+  private dictionary: any;
+  private length = 0;
+
+  constructor() {   
+    this.dictionary = {};  // Dictionary will hold the items of our set
     this.length = 0;
   }
 
   /** This method will check for the presence of an element and return true or false
  * @param item - new item */
-  has(element) {
+  has(element: T) {
     return this.dictionary[element] !== undefined;
   }
 
@@ -80,4 +91,5 @@
   }
 }
 
+export {Set};
 module.exports = Set;
