@@ -46,7 +46,7 @@ class SetItem<T>{
 
   /** Adds new item, returns boolean 
  * @param item - new item */
-  add(item){
+  add(item: T){
       if (!this.has(item)){
           this.dictionary[item] = item;
           this.length++
@@ -57,7 +57,7 @@ class SetItem<T>{
   
  /** Removes item, returns boolean 
  * @param item - item to remove */
-  remove(item){
+  remove(item: T){
       if(this.has(item)){
         delete this.dictionary[item]
         this.length--
@@ -70,20 +70,20 @@ class SetItem<T>{
       return this.length
   }
 
-  union(externalSet) {
+  union(externalSet: Set<T>) {
     const unionSet = new Set();
-    this.values().forEach(x => unionSet.add(value))
-    externalSet.values().forEach(x => unionSet.add(value))
+    this.dictionary.values().forEach((x: T) => unionSet.add(x))
+    externalSet.values().forEach((x: any) => unionSet.add(x))
     return unionSet;
   }
 
-  intersection(externalSet){
+  intersection(externalSet: Set<T>){
     const intersectionSet = new Set();
     this.values().forEach(x => externalSet.values().includes(x) ? intersectionSet.add(x): null)
     return intersectionSet
   }
 
-  uniqueDifference(externalSet){
+  uniqueDifference(externalSet: Set<T>){
     const differenceSet = new Set();
     const valSet1 = this.values().filter(x => externalSet.values().includes(x))
     valSet1.forEach(x => differenceSet.add(x))
