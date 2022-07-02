@@ -18,8 +18,8 @@
  * Top-Down data store for recently added and removed, Last one in, Is First one out
  * @class init new empty array
  */
- function Queue() {
-  let collection = [];
+ function Queue<T>(this: any) {
+  let collection : T[] = [];
 
   this.print = function() {
     console.log(collection);
@@ -32,7 +32,7 @@
 
   /** adds item to end 
    * @param item - new item to add on the end*/ 
-  this.enqueue = function(item){
+  this.enqueue = function(item: T){
       collection.push(item)
   }
 
@@ -55,8 +55,11 @@
   }
 }
 
-let myStack = new Queue();
+let myStack = new (Queue as any)();
+
 myStack.enqueue("hi")
 myStack.enqueue("there")
 myStack.enqueue("friend")
+myStack.print();
+myStack.dequeue();
 myStack.print();
