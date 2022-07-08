@@ -11,9 +11,6 @@
     - create methods for viewing queue (print, front, isEmpty, size)
 */
 
-// TODO - convert to TS
-
-
 /**
  * Top-Down data store for recently added and removed, Last one in, Is First one out
  * @class init new empty array
