@@ -18,7 +18,7 @@
  * Top-Down data store for recently added and removed, Last one in, Is First one out
  * @class init new empty array
  */
- function PriorityQueue() {
+ function PriorityQueue<T>(this: any) {
     this.collection = [];
   
     this.print = function() {
@@ -32,7 +32,7 @@
   
     /** adds item to the bottom 
      * @param item - new item to add */ 
-    this.enqueue = function(item){
+    this.enqueue = function(item: [T, number]){
         if(this.isEmpty()) {this.collection.unshift(item)}
 
         // start from end of the queue, traverse backwards to front
@@ -67,7 +67,7 @@
 
 module.exports = PriorityQueue;
 
-let myQueue = new PriorityQueue();
+let myQueue =  new (PriorityQueue as any)();
 myQueue.enqueue(["first Friend", 3])
 myQueue.enqueue(["first four", 4])
 myQueue.enqueue(["sev", 7])

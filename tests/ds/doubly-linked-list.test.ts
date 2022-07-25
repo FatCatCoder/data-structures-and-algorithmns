@@ -1,15 +1,15 @@
 // Collection of unique items with various RW methods
-const DoublyLinkedList = require('../../data-structures/doubly-linked-list');
+const {DLL} = require('../../data-structures/doubly-linked-list');
 
 describe('Doubly Linked List', () =>{
 
     it('New DoublyLinkedList()', () => {
-        const dll = new DoublyLinkedList();
+        const dll = new DLL();
         expect(dll).not.toBeNull();
     });
 
     it('add()', () => {
-        const dll = new DoublyLinkedList();
+        const dll = new DLL();
 
         dll.add('a');
         const aNode = dll.head;
@@ -31,7 +31,7 @@ describe('Doubly Linked List', () =>{
     });
 
     it('remove()', () => {
-        const dll = new DoublyLinkedList();
+        const dll = new DLL();
 
         dll.add('a');
         const aNode = dll.head;

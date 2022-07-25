@@ -5,12 +5,25 @@
  * 
  */
 
-function DoublyLinkedList() {
+interface IDLLNode<T>{
+    data: T;
+    prev: IDLLNode<T> | null;
+    next: IDLLNode<T> | null;
+}
+
+ interface IDoublyLinkedList<T> {
+    head: string | null;
+    tail: number | null;
+    length: number;
+    add (newData: T): boolean;
+};
+
+function DoublyLinkedList<T>(this: IDoublyLinkedList<T>): void {
     this.head = null;
     this.tail = null;
     this.length = 0;
 
-    var Node = function(data, prev, next){
+    var Node = function(this: IDLLNode<T>, data: T, prev: IDLLNode<T> | null, next: IDLLNode<T> | null = null){
         this.data = data;
         this.prev = prev || null;
         this.next = next || null;
@@ -18,9 +31,9 @@ function DoublyLinkedList() {
 
     /** appends new item
      * @newData item */
-    this.add = function(newData){
+    this.add = function(newData: T){
         this.length++;
-        let newNode = new Node(newData, this.tail);
+        let newNode = new (Node as any)(newData, this.tail);
 
         if(!this.head){
             this.head = newNode;
@@ -127,7 +140,7 @@ function DoublyLinkedList() {
     }
 }
 
-const dll = new DoublyLinkedList();
+const dll = new (DoublyLinkedList as any)();
 dll.add('a');
 dll.add('b');
 dll.add('c');
@@ -139,58 +152,3 @@ console.log('\n');
 dll.print();
 
 module.exports = DoublyLinkedList;
-
-
-
-
-/*
-     this.add = function(newData){
-        this.length++;
-
-        if(this.head === null){
-            return this.head = new Node(newData);
-        }
-
-        let prevNode = this.head;
-        
-        function recursiveAdd(deepNode){
-            if(deepNode.next === null){
-                return prevNode.next = new Node(newData, prevNode);
-            }
-
-            prevNode = deepNode.next;
-            recursiveAdd(deepNode.next);
-        }
-
-        recursiveAdd(this.head); // start
-    };
-
-
-
-
-    this.remove = (removable) => {
-        if(!this.head) return null;
-
-        let prevNode = this.head;
-
-        function recursive(deepNode){
-            // c works
-            if(deepNode.data === removable){
-                deepNode.prev?
-                    deepNode.prev.next = deepNode.next :
-                    null;
-                deepNode.next? 
-                    deepNode.next.prev = deepNode.prev :
-                    this.tail = deepNode.prev;
-
-                this.length--;
-            }
-            if(deepNode.next === null) return 'Done';
-
-            prevNode = deepNode.next;
-            return recursive(deepNode.next);
-        }
-
-        return recursive(this.head); // start
-    }
-*/
