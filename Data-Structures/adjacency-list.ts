@@ -1,3 +1,10 @@
+// The Node variation increases memory and ignores some builtin features of the language
+// but provides extensibility in a strict oop paradigm 
+
+
+/** 
+ * Adjacency List Node for an Unweighted, Undirected graph.
+ */
 class Node<T> {
     value: T;
     adjacencies: Node<T>[];
@@ -29,7 +36,9 @@ class Node<T> {
   }
 
 
-// Main Class
+/**
+ * Unweighted, Undirected
+ */
   class AdjacencyList<T> {
     graph: Node<T>[];
 
@@ -37,11 +46,34 @@ class Node<T> {
         this.graph = [];
     }
 
-    addNode(node: Node<T>, parentNode: Node<T>|null = null): void {
-        if(parentNode === null) this.graph.push(node);
-        else {
-            this.graph.find(x => x === parentNode)?.addAdjacent(node);
-        }
+    addNode(node: Node<T>): void {
+        this.graph.push(node);
+    }
+
+    addEdge(root: Node<T>, newEdge: Node<T>){
+      root.addAdjacent(newEdge);
+    }
+
+    addNodeOrEdge(node: Node<T>, parentNode: Node<T>|null = null): void {
+      if(parentNode === null) this.graph.push(node);
+      else {
+          this.graph.find(x => x === parentNode)?.addAdjacent(node);
+      }
+  }
+
+    BFS(find: T): Node<T> | null {
+      let found: Node<T> | null = null;
+      this.graph.forEach(x => {
+          if(x.value === find) found = x
+          if(found !== null) return found
+
+          x.adjacencies.forEach(y => {
+              if(y.value === find) found = y;
+              if(found !== null) return found
+          })
+      })
+
+      return found;
     }
 
     printBFS(): void {
@@ -55,26 +87,48 @@ class Node<T> {
             })
         })
 
+        // display
         for (let i of queue.values()){
           console.log(i)
       }
     }
 
     printDFS(): void {
-      let stack: Node<T>[] = [];
+      let visited: Node<T>[] = []; // stack of visited nodes
+
+      this.graph.forEach(x => {
+        recurse(x)
+      })
 
       function recurse(node: Node<T>){
-        if(node.adjacencies.length !== 0){
-          node.adjacencies.forEach(x => recurse(x))
-        }
-        if(!stack.includes(node)) stack.unshift(node)
+        if(!visited.includes(node)) visited.unshift(node);
+          node.adjacencies.forEach(x => {
+            if(!visited.includes(x)) {
+              recurse(x)
+            }
+          })
       }
-      recurse(this.graph[0])
-
-      stack.forEach(x => console.log(x))
+      
+      // display
+      visited.forEach(x => console.log(x))
     }
   }
 
+  // Our Graph
+  //   1
+  //  / \
+  // |   2
+  // 4    \
+  //  \____3
+  //       |
+  //       5
+
+  // Our Graph
+  // 1 -> 2, 4
+  // 2 -> 1, 3
+  // 3 -> 4, 5
+  // 4 -> 1, 3
+  // 5 -> 3
   var aj = new AdjacencyList<number>();
 
   var n1 = new Node<number>(1)
@@ -90,20 +144,26 @@ class Node<T> {
   aj.addNode(n5)
 
   //1
-  aj.graph[0].addAdjacent(n2);
-  aj.graph[0].addAdjacent(n4);
+  aj.graph[0].addAdjacent(n2) // 1 -> 2
+  aj.graph[0].addAdjacent(n4) // 1 -> 4
   //2
-  aj.graph[1].addAdjacent(n3)
+  aj.graph[1].addAdjacent(n1) // 2 -> 1
+  aj.graph[1].addAdjacent(n3) // 2 -> 3
   //3
-  aj.graph[2].addAdjacent(n2)
-  aj.graph[2].addAdjacent(n4)
+  aj.graph[2].addAdjacent(n2) 
   aj.graph[2].addAdjacent(n5)
+  aj.graph[2].addAdjacent(n4)
+  
   //4
   aj.graph[3].addAdjacent(n1)
   aj.graph[3].addAdjacent(n3)
   //5
   aj.graph[4].addAdjacent(n3)
 
-  aj.printBFS();
+  // aj.printBFS();
+  // aj.printDFS();
+
+  var node = aj.BFS(4)
+  console.log(node)
 
 export default AdjacencyList;
