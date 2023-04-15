@@ -3,15 +3,15 @@ import { AVLTree } from '../../Data-Structures/avl-tree';
 ////////////////////////////////
 // what our tree looks like 
 ///////////////////////////////
-//          50
-//        /    \
-//      25      75
-//     /  \    /  \
-//   12   37  60   90
-//  / \   /  \    /  \
-// 10 15 30  40  80  95
-//         / \
-//        55 65
+//            50
+//         /       \
+//      25            75
+//     /  \         /    \
+//   12   37       60     90
+//  / \   /  \    /  \    /  \
+// 10 15 30  40  55   65 80  95
+//
+//        
 ////////////////////////////////
 
 
@@ -99,6 +99,10 @@ describe("AVLTree", () => {
 
       expect(avlTree.root?.right?.left?.right?.value).toBe(65);
       expect(avlTree.root?.right?.left?.right?.height).toBe(1);
+    });
+
+    test("prints a tree correctly", () => {
+      avlTree.printTree(avlTree.root);
     });
   
 })

@@ -18,6 +18,18 @@ export class AVLTreeNode {
     constructor() {
       this.root = null;
     }
+
+    public printTree(root: AVLTreeNode | null, prefix = '', isLeft = true): void {
+      if (!root) {
+        return;
+      }
+    
+      console.log(`${prefix}${isLeft ? '├──' : '└──'}${root.value}`);
+    
+      const newPrefix = prefix + (isLeft ? '│  ' : '   ');
+      this.printTree(root?.left, newPrefix, true);
+      this.printTree(root?.right, newPrefix, false);
+    }
   
     private getHeight(node: AVLTreeNode | null): number {
       if (!node) {
@@ -176,3 +188,13 @@ export class AVLTreeNode {
         return node;
       }
 }
+
+// quick testing
+// let avlTree: AVLTree;
+// const values = [50, 25, 75, 12, 37, 60, 90, 10, 15, 30, 40, 55, 65, 80, 95];
+// avlTree = new AVLTree();
+// values.forEach((value) => {
+//     avlTree.insert(value);
+//   });
+
+//   avlTree.printTree(avlTree.root);
