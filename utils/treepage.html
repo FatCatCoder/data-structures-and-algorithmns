@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <div id="tree-container"></div>
+    <script>
+        // Set up the tree data
+        const treeData = {
+        value: "A",
+        left: {
+            value: "B",
+            left: {
+            value: "D"
+            },
+            right: {
+            value: "E"
+            }
+        },
+        right: {
+            value: "C",
+            left: {
+            value: "F"
+            },
+            right: {
+            value: "G"
+            }
+        }
+        };
+
+         // Traverse the binary search tree
+         function buildHierarchy(node) {
+        if (node == null) return null;
+        
+        return {
+            name: node.value,
+            children: [
+            buildHierarchy(node.left),
+            buildHierarchy(node.right)
+            ].filter(child => child != null)
+            };
+        }
+
+        const hierarchyData = buildHierarchy(treeData);
+
+        // Set up the SVG element and margins
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const width = 500 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3
+        .select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        // Set up the tree layout
+        const treeLayout = d3.tree().size([width, height]);
+
+        // Set up the root node
+        const rootNode = d3.hierarchy(hierarchyData);
+
+        // Calculate the positions of the nodes and links
+        treeLayout(rootNode);
+
+        // Draw the links between the nodes
+        svg
+        .selectAll(".link")
+        .data(rootNode.links())
+        .enter()
+        .append("path")
+        .attr("class", "link")
+        .attr("d", d => {
+            return (
+            "M" + d.source.x + "," + d.source.y +
+            "C" + d.source.x + "," + (d.source.y + d.target.y) / 2 +
+            " " + d.target.x + "," + (d.source.y + d.target.y) / 2 +
+            " " + d.target.x + "," + d.target.y
+            );
+        });
+
+        // Draw the nodes
+        svg
+        .selectAll(".node")
+        .data(rootNode.descendants())
+        .enter()
+        .append("g")
+        .attr("class", "node")
+        .attr("transform", d => `translate(${d.x}, ${d.y})`)
+        .append("circle")
+        .attr("r", 10);
+
+        svg
+        .selectAll(".node")
+        .append("text")
+        .text(d => d.data.name)
+        .attr("text-anchor", "middle")
+        .attr("dy", "0.3em");
+
+        // Style the nodes and links
+        svg.selectAll(".link").style("stroke", "#ccc");
+        svg.selectAll(".node circle").style("fill", "#fff");
+        svg.selectAll(".node text").style({
+        "font-size": "12px",
+        "font-weight": "bold",
+        "text-anchor": "middle",
+        "dominant-baseline": "central"
+        });
+    </script>
+</body>
+</html>
