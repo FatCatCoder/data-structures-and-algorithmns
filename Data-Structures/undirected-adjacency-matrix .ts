@@ -54,6 +54,24 @@ interface IUndirectedAdjacencyMatrix<T> {
       this.matrix.forEach((row) => row.splice(nodeIndex, 1));
     }
 
+    DFS(start: number, visited: T[] | null) {
+      if(visited == null) visited = [];
+   
+      // set current node as visited
+      visited.push(this.nodes[start]);
+   
+      // for every node of the graph
+      for (let i = 0; i < this.matrix[start].length; i++) {
+        // if some node is adjacent to the current node
+        // and it has not already been visited
+        if (this.matrix[start][i] === 1 && !visited.includes(this.nodes[i])) {
+          this.DFS(i, visited);
+        }
+      }
+
+      return visited;
+    }
+
     toString(){
       let objString: any = {};
 
@@ -89,9 +107,11 @@ interface IUndirectedAdjacencyMatrix<T> {
   const graph = new UndirectedAdjacencyMatrix<string>(["A", "B", "C"]);
   graph.addEdge(0, 1, 1);
   graph.addEdge(1, 2, 1);
-  // graph.addNode("D");
-  // graph.addEdge(0, 3, 1);
+  graph.addNode("D");
+  graph.addEdge(0, 3, 1);
+  graph.addEdge(1, 3, 1);
   // graph.removeNode(1);
+  var dfsres = graph.DFS(1, null);
 
   console.log(graph);
 
