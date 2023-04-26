@@ -87,9 +87,11 @@ interface IUndirectedAdjacencyMatrix<T> {
 
             // only bi-directional edges
             if(y > 0){
-              objString.edges.push({
-                "from": xi.toString(), "to": yi.toString()
-              });
+              // uncomment below to remove bi-direction arrows, (just cleans up the graph...)
+              // if(!objString.edges.find((z: any) => z.from == xi.toString() && z.to == yi.toString()) && !objString.edges.find((z: any) => z.from == yi.toString() && z.to == xi.toString()))
+                objString.edges.push({
+                  "from": xi.toString(), "to": yi.toString()
+                });
             };
 
           });
@@ -105,13 +107,21 @@ interface IUndirectedAdjacencyMatrix<T> {
   
   // Example usage:
   const graph = new UndirectedAdjacencyMatrix<string>(["A", "B", "C"]);
-  graph.addEdge(0, 1, 1);
-  graph.addEdge(1, 2, 1);
+  graph.addEdge(0, 1, 1); // A - B
+  graph.addEdge(1, 2, 1); // B - C
+
   graph.addNode("D");
-  graph.addEdge(0, 3, 1);
-  graph.addEdge(1, 3, 1);
+  graph.addEdge(0, 3, 1); // A - D
+  graph.addEdge(1, 3, 1); // B - D
+
+  graph.addNode("E");
+  graph.addEdge(0, 4, 1); // A - E
+
+  graph.addNode("F");
+  graph.addEdge(4, 5, 1); // E - F
+
   // graph.removeNode(1);
-  var dfsres = graph.DFS(1, null);
+  var DFSValues = graph.DFS(1, null);
 
   console.log(graph);
 
