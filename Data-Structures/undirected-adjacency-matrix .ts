@@ -72,6 +72,27 @@ interface IUndirectedAdjacencyMatrix<T> {
       return visited;
     }
 
+    BFS(startIndex: number) {
+      const items = [this.nodes[startIndex]];
+      const visited = new Array(this.nodes.length).fill(false);
+      const queue = [startIndex];
+      visited[startIndex] = true;
+  
+      while (queue.length > 0) {
+        const currentNodeIndex = queue.shift() as number;
+  
+        for (let neighborIndex = 0; neighborIndex < this.nodes.length; neighborIndex++) {
+          if (this.matrix[currentNodeIndex][neighborIndex] !== 0 && !visited[neighborIndex]) {
+            visited[neighborIndex] = true;
+            items.push(this.nodes[neighborIndex])
+            queue.push(neighborIndex);
+          }
+        }
+      }
+
+      return items;
+    }
+
     toString(){
       let objString: any = {};
 
@@ -121,7 +142,8 @@ interface IUndirectedAdjacencyMatrix<T> {
   graph.addEdge(4, 5, 1); // E - F
 
   // graph.removeNode(1);
-  var DFSValues = graph.DFS(1, null);
+  var DFSValues = graph.DFS(0, null);
+  var BFSValues = graph.BFS(0); // A B D E C F
 
   console.log(graph);
 
